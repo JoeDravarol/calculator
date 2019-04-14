@@ -18,28 +18,28 @@
         </div>
 
         <div class="calc-buttons">
-            <button type="button" class="calc-btn calc-btn-lg btn-blue">C</button>
-            <button type="button" class="calc-btn btn-blue">&#8676;</button>
-            <button type="button" class="calc-btn">&divide;</button>
+            <button id="clear" type="button" class="calc-btn calc-btn-lg btn-blue">C</button>
+            <button id="backspace" type="button" class="calc-btn btn-blue">&#8676;</button>
+            <button type="button" class="calc-btn" data-operation="div">&divide;</button>
 
             <button type="button" class="calc-btn">7</button>
             <button type="button" class="calc-btn">8</button>
             <button type="button" class="calc-btn">9</button>
-            <button type="button" class="calc-btn">&times;</button>
+            <button type="button" class="calc-btn" data-operation="mul">&times;</button>
 
             <button type="button" class="calc-btn">4</button>
             <button type="button" class="calc-btn">5</button>
             <button type="button" class="calc-btn">6</button>
-            <button type="button" class="calc-btn">&minus;</button>
+            <button type="button" class="calc-btn" data-operation="min">&minus;</button>
 
             <button type="button" class="calc-btn">1</button>
             <button type="button" class="calc-btn">2</button>
             <button type="button" class="calc-btn">3</button>
-            <button type="button" class="calc-btn">&plus;</button>
+            <button type="button" class="calc-btn" data-operation="add">&plus;</button>
 
             <button type="button" class="calc-btn calc-btn-lg">0</button>
             <button type="button" class="calc-btn">.</button>
-            <button type="button" class="calc-btn btn-green">&equals;</button>
+            <button type="button" class="calc-btn btn-green" data-operation="sum">&equals;</button>
         </div>
     </div>
     
