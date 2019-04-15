@@ -33,6 +33,7 @@ const operationHandler = {
 function clear() {
     values.displayValue = '';
     values.num1 = 0;
+    values.op = '';
     eventHandler.mainDisplay.textContent = 0;
     eventHandler.subDisplay.textContent = '';
 }
@@ -71,16 +72,31 @@ function populateDisplay(e) {
         backspace()
     }
     
+    // If the button has data attribute
     if (operationContent) {
         if (operationContent === 'sum') {
 
-            operationHandler.sum(op, +values.num1, +values.displayValue);
+            operationHandler.sum(values.op, +values.num1, +values.displayValue);
             eventHandler.subDisplay.textContent = '';
 
-        } else {
-            op = operationContent;
-            values.num1 = values.displayValue;
+          // If there's a value in num1 and op
+        } else if (values.num1 && values.op) {
             
+            // Then calculate the total with the existing values
+            eventHandler.mainDisplay.textContent = operationHandler[values.op](+values.num1, +values.displayValue);
+
+            // Chained the operation and display it on sub display
+            eventHandler.subDisplay.textContent += `${values.displayValue} ${buttonContent} `;
+            
+            // Overwrite the old values for next calculation
+            values.op = operationContent;
+            values.displayValue = '';
+            values.num1 = eventHandler.mainDisplay.textContent;            
+            
+        } else if (!values.op && eventHandler.mainDisplay.textContent !== '0') {
+            values.op = operationContent;
+            values.num1 = values.displayValue;
+
             eventHandler.subDisplay.textContent += `${values.displayValue} ${buttonContent} `;
             
             values.displayValue = '';
