@@ -7,21 +7,22 @@ const eventHandler = {
 let values = {
     displayValue: '',
     num1: 0,
-    op: ''
+    op: '',
+    disabled: false
 }
 
 const operationHandler = {
     add: function(num1, num2) {
-        return num1 + num2;
+        return roundingDecimal(num1 + num2);
     },
     min: function(num1, num2) {
-        return num1 - num2;
+        return roundingDecimal(num1 - num2);
     },
     mul: function(num1, num2) {
-        return num1 * num2;
+        return roundingDecimal(num1 * num2);
     },
     div: function(num1, num2) {
-        return num1 / num2;
+        return roundingDecimal(num1 / num2);
     },
     sum: function(operator, num1, num2) {
         clear();
@@ -34,11 +35,17 @@ function clear() {
     values.displayValue = '';
     values.num1 = 0;
     values.op = '';
+    values.disabled = false;
     eventHandler.mainDisplay.textContent = 0;
     eventHandler.subDisplay.textContent = '';
 }
 
 function backspace() {
+    // Check for decimal
+    if (values.displayValue[values.displayValue.length - 1] === '.') {
+        values.disabled = false;
+    }
+
     values.displayValue = values.displayValue.slice(0, values.displayValue.length - 1);
 
     // Check if there's value after slicing
@@ -47,6 +54,10 @@ function backspace() {
     } else {
         eventHandler.mainDisplay.textContent = values.displayValue;
     }
+}
+
+function roundingDecimal(value) {
+    return Math.round(value * 10) / 10;
 }
 
 function populateDisplay(e) {
@@ -100,8 +111,20 @@ function populateDisplay(e) {
             eventHandler.subDisplay.textContent += `${values.displayValue} ${buttonContent} `;
             
             values.displayValue = '';
+            values.disabled = false;
         }
         
+    }
+
+    // Decimal button
+    if (buttonContent === '.') {
+        
+        if (!values.disabled) {
+            values.displayValue += buttonContent;
+            eventHandler.mainDisplay.textContent = values.displayValue;
+
+            values.disabled = true;
+        }         
     }
 }
 
